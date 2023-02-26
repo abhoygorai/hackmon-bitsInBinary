@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>* {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      
+      :root {
+        font-family: sans-serif;
+        --progress-bar-width: 500px;
+        --progress-bar-height: 500px;
+        --font-size: 8rem;
+      }
+      
+      body {
+        height: 100vh;
+        background-color: #100c08;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        place-items: center;
+        gap: 2rem;
+      }
+      .circle
+      {
+        position: absolute;
+        left: calc(50%-250px);
+      }
+      .circular-progress {
+        width: var(--progress-bar-width);
+        height: var(--progress-bar-height);
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .inner-circle {
+        position: absolute;
+        width: calc(var(--progress-bar-width) - 30px);
+        height: calc(var(--progress-bar-height) - 30px);
+        border-radius: 50%;
+        background-color: lightgrey;
+      }
+      
+      .percentage {
+        position: relative;
+        font-size: var(--font-size);
+        color: rgb(0, 0, 0, 0.8);
+      }
+      
+      @media screen and (max-width: 800px) {
+        :root {
+          --progress-bar-width: 150px;
+          --progress-bar-height: 150px;
+          --font-size: 1.3rem;
+        }
+      }
+      
+      @media screen and (max-width: 500px) {
+        :root {
+          --progress-bar-width: 200px;
+          --progress-bar-height: 200px;
+          --font-size: 1rem;
+        }
+      }
+      h2
+      {
+        color: white;
+        text-align: center;
+        font-size: 40px;
+        margin-bottom: 20px;
+      }
+      </style>
+</head>
+<body>
+    <div class="circle">
+        <h2>FOCUS</h2>
+    <div class="circular-progress" data-inner-circle-color="lightgrey" data-percentage=<%= percentage %> data-progress-color="crimson" data-bg-color="black">
+        <div class="inner-circle"></div>
+        <p class="percentage">0%</p>
+      </div>
+    </div>
+      <script>const circularProgress = document.querySelectorAll(".circular-progress");
+
+        Array.from(circularProgress).forEach((progressBar) => {
+          const progressValue = progressBar.querySelector(".percentage");
+          const innerCircle = progressBar.querySelector(".inner-circle");
+          let startValue = 0,
+            endValue = Number(progressBar.getAttribute("data-percentage")),
+            speed = 50,
+            progressColor = progressBar.getAttribute("data-progress-color");
+        
+          const progress = setInterval(() => {
+            startValue++;
+            progressValue.textContent = `${startValue}%`;
+            progressValue.style.color = `${progressColor}`;
+        
+            innerCircle.style.backgroundColor = `${progressBar.getAttribute(
+              "data-inner-circle-color"
+            )}`;
+        
+            progressBar.style.background = `conic-gradient(${progressColor} ${
+              startValue * 3.6
+            }deg,${progressBar.getAttribute("data-bg-color")} 0deg)`;
+            if (startValue === endValue) {
+              clearInterval(progress);
+            }
+          }, speed);
+        });
+        </script>
+</body>
+</html>

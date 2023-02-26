@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    <script src="https://kit.fontawesome.com/b0eeb003f7.js" crossorigin="anonymous"></script>
+    <script src="http://requirejs.org/docs/errors.html#mismatch"></script>
+    <title>Document</title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            padding-top: 100px;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: #03010083;
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: auto;
+            padding: 70px;
+            border: 1px solid #888;
+            width: 80%;
+            border-radius: 20px;
+            opacity: 100%;
+        }
+
+        .close {
+            color: #aaaaaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        @import url('https://fonts.googleapis.com/css?family=Lato:400,700');
+
+
+        html {
+            display: grid;
+            min-height: 100%;
+        }
+
+        :root {
+            --white: #FCFCFC;
+            --gray: #CBCDD3;
+            --dark: #777777;
+            --error: #EF8D9C;
+            --orange: #FFC39E;
+            --success: #B0DB7D;
+            --secondary: #99DBB4;
+            --font: 'Lato', sans-serif;
+        }
+
+        #container {
+            display: flex;
+            overflow: hidden;
+            font-family: var(--font);
+            text-transform: uppercase;
+            text-align: center;
+
+        }
+
+        h1 {
+            font-size: 0.9em;
+            font-weight: 100;
+            letter-spacing: 3px;
+            padding-top: 5px;
+            color: var(--white);
+            padding-bottom: 5px;
+            text-transform: uppercase;
+        }
+
+        .green {
+            color: darken(var(--secondary), 20%);
+        }
+
+        .red {
+            color: darken(var(--error), 10%);
+        }
+
+        .alert {
+            margin-top: 30px;
+            font-weight: 700;
+            font-size: 30px;
+            letter-spacing: 5px;
+        }
+
+        p {
+            margin-top: -5px;
+            font-size: 0.75em;
+            font-weight: 100;
+            color: darken(var(--dark), 10%);
+            letter-spacing: 1px;
+        }
+
+        button {
+            cursor: pointer;
+        }
+
+        .img {
+            margin-top: 10px;
+            width: 62%;
+        }
+
+        .imgg {
+            margin-top: 10px;
+            width: 40%;
+        }
+
+        .success-box {
+            width: 30%;
+            height: 400px;
+            margin: auto;
+            background: linear-gradient(to bottom right, var(--success) 40%, var(--secondary) 100%);
+            border-radius: 20px;
+            box-shadow: 5px 5px 20px rgba(var(--gray), 10%);
+            perspective: 40px;
+        }
+
+        .error-box {
+            width: 30%;
+            height: 400px;
+            margin: auto;
+            background: linear-gradient(to bottom left, var(--error) 40%, var(--orange) 100%);
+            border-radius: 20px;
+            box-shadow: 5px 5px 20px rgba(var(--gray), 10%);
+            perspective: 40px;
+        }
+
+        .two {
+            right: 12%;
+            opacity: .5;
+        }
+
+        .face {
+            position: absolute;
+            width: 22%;
+            height: 22%;
+            background: var(--white);
+            border-radius: 50%;
+            border: 1px solid var(--dark);
+            top: 21%;
+            left: 37.5%;
+            z-index: 2;
+            animation: bounce 1s ease-in infinite;
+        }
+
+        .face2 {
+            position: absolute;
+            width: 22%;
+            height: 22%;
+            background: var(--white);
+            border-radius: 50%;
+            border: 1px solid var(--dark);
+            top: 21%;
+            left: 37.5%;
+            z-index: 2;
+            animation: roll 3s ease-in-out infinite;
+        }
+
+        .eye {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            background: var(--dark);
+            border-radius: 50%;
+            top: 40%;
+            left: 20%;
+        }
+
+        .right {
+            left: 68%;
+        }
+
+        .mouth {
+            position: absolute;
+            top: 43%;
+            left: 41%;
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+        }
+
+        .happy {
+            border: 2px solid;
+            border-color: transparent var(--dark) var(--dark) transparent;
+            transform: rotate(45deg);
+        }
+
+        .sad {
+            top: 49%;
+            border: 2px solid;
+            border-color: var(--dark) transparent transparent var(--dark);
+            transform: rotate(45deg);
+        }
+
+        .shadow {
+            position: absolute;
+            width: 21%;
+            height: 3%;
+            opacity: .5;
+            background: var(--dark);
+            left: 40%;
+            top: 43%;
+            border-radius: 50%;
+            z-index: 1;
+        }
+
+        .scale {
+            animation: scale 1s ease-in infinite;
+        }
+
+        .move {
+            animation: move 3s ease-in-out infinite;
+        }
+
+        .message {
+            position: absolute;
+            width: 100%;
+
+            text-align: center;
+            height: 40%;
+            top: 47%;
+        }
+
+        .button-box {
+            position: absolute;
+            background: var(--white);
+            width: 50%;
+            height: 15%;
+            border-radius: 20px;
+            top: 73%;
+            left: 25%;
+            outline: 0;
+            border: none;
+            box-shadow: 2px 2px 10px rgba(var(--dark), .5);
+            transition: all .5s ease-in-out;
+
+        }
+
+        .button-box:hover {
+            /* background: darken(var(--white), 5%); */
+            transform: scale(1.2);
+            transition: all .3s ease-in-out;
+        }
+
+        @keyframes bounce {
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        @keyframes scale {
+            50% {
+                transform: scale(0.9);
+            }
+        }
+
+        @keyframes roll {
+            0% {
+                transform: rotate(0deg);
+                left: 25%;
+            }
+
+            50% {
+                left: 60%;
+                transform: rotate(168deg);
+            }
+
+            100% {
+                transform: rotate(0deg);
+                left: 25%;
+            }
+        }
+
+        @keyframes move {
+            0% {
+                left: 25%;
+            }
+
+            50% {
+                left: 60%;
+            }
+
+            100% {
+                left: 25%;
+            }
+        }
+    </style>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <link rel="stylesheet" href="/css/home.css" />
+</head>
+
+<body>
+    <div class="main">
+        <div class="flex">
+            <div class="wrapper">
+                <div class="searchBar">
+                    <input id="searchQueryInput" type="text" name="searchQueryInput" placeholder="Enter a youtube URL"
+                        value="" />
+                    <button id="searchQuerySubmit" type="submit" name="searchQuerySubmit">
+                        <i id="sp-i" class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="player">
+                <iframe id="video-frame" src="" title="YouTube video player" frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowfullscreen></iframe>
+            </div>
+        </div>
+        <div class="flex">
+            <div class="button-boxx settings-div flex">
+                <form action="/" method="get">
+                    <button type="submit">
+                        <div class="setting-1">
+                            <i class="bi bi-house logo-1"></i>
+                        </div>
+                    </button>
+                </form>
+                <form action="/stats" method="get">
+                    <button type="submit">
+                        <div class="setting-2">
+                            <i class="bi bi-bar-chart logo-2 active"></i>
+                        </div>
+                    </button>
+                </form>
+            </div>
+        </div>
+        <div>
+
+            <button id="myBtn" style="
+              width: 100px;
+              padding: 12px;
+              background-color: yellow;
+              cursor: pointer;
+              border-radius: 12px;
+              font-size: medium;
+              font-weight: 300;
+            ">
+                Start
+            </button>
+        </div>
+    </div>
+
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div id="container">
+                <div class="success-box">
+                    <img class="img" src="/images/1.svg" alt="">
+                    <div class="message">
+                        <h1 class="alert">Quiz!</h1>
+                        <p>let's do some questions</p>
+                    </div>
+                    <a style="text-decoration: none;" href="/templates/quiz.html">
+                        <form action="/quiz" method="post">
+                            <button type="submit" class="button-box">
+                                <h1 class="green">Quiz Time</h1>
+                            </button>
+                        </form>
+                    </a>
+                </div>
+                <div class="error-box">
+                    <img class="img" src="/images/2.svg" alt="">
+                    <div class="message">
+                        <h1 class="alert">Fun Game!</h1>
+                        <p>let's play engaging games
+                    </div>
+                    <a style="text-decoration: none;" href="/templates/fun_game.html">
+                        <form action="/fungame" method="post">
+                            <button type="submit" class="button-box">
+                                <h1 class="green">Let's learn</h1>
+                            </button>
+                        </form>
+                    </a>
+                </div>
+                <div class="success-box">
+                    <img class="imgg" src="/images/3.svg" alt="">
+                    <div class="message">
+                        <h1 class="alert">Brain Teaser!</h1>
+                        <p>Challenging mind-games</p>
+                    </div>
+                    <a style="text-decoration: none;" href="/templates/sum_stacks_game.html">
+                        <form action="/sumstackgame" method="post">
+                            <button type="submit" class="button-box">
+                                <h1 class="green">Play Now</h1>
+                            </button>
+                        </form>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <script>
+        var modal = document.getElementById("myModal");
+
+        // Get the button that opens the modal
+        var btn = document.getElementById("myBtn");
+
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
+
+        // When the user clicks on <span> (x), close the modal
+        btn.onclick = function () {
+            modal.style.display = "block";
+        }
+
+        span.onclick = function () {
+            modal.style.display = "none";
+        }
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
+    <script>
+        var searchButton = document.getElementById("searchQuerySubmit")
+        searchButton.onclick = function () {
+            var link = document.getElementById("searchQueryInput").value;
+            link = link.split("v=").pop()
+            let finalLink = "https://www.youtube.com/embed/" + link;
+            // alert(finalLink)
+            document.getElementById("video-frame").src = finalLink;
+            document.getElementById("searchQueryInput").value = "";
+            $("video-frame").load("video-frame")
+        }
+    </script>
+    <script src="/scripts/database.js"></script>
+</body>
+
+</html>
